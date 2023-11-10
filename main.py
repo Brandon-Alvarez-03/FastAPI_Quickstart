@@ -8,11 +8,23 @@ class Greeting(BaseModel):
 app = FastAPI()
 
 # We'll use this dictionary to store our greetings
-greetings = {}
+greetings = {
+    1: "Hello, World!",
+    2: "Howdy, Partner!",
+    3: "Greetings, Earthling!",
+    4: "Salutations and Respect!",
+    5: "Hey there, Universe!"
+}
+
 
 @app.get("/")
 def read_root():
-    return {"hello": "world"}
+    return {"message": "Go to /greetings/all to see all greetings", 
+            "link": "<a href='/greetings/all'>All Greetings</a>"}
+  
+@app.get("/greetings/all")
+def get_all_greetings():
+    return greetings
 
 @app.post("/greetings/")
 def create_greeting(id: int, greeting: Greeting):

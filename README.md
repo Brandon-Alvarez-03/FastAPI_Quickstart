@@ -123,6 +123,16 @@ This application provides a simple CRUD API for greetings.
 
 This application provides a simple CRUD API for greetings. Below are the `curl` commands to test each endpoint.
 
+### Get All Greetings
+
+To retrieve all greetings:
+
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8000/greetings/all' \
+  -H 'accept: application/json'
+```
+
 ### Create a Greeting (POST)
 
 To create a new greeting:
