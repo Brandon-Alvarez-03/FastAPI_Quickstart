@@ -1,6 +1,6 @@
 # Quickstart Guide for FastAPI Project
 
-This guide will walk you through setting up a basic FastAPI application on Windows, macOS, and Linux.
+This guide will walk you through setting up a basic FastAPI application with an MVC structure on Windows, macOS, and Linux.
 
 ## Prerequisites
 
@@ -58,19 +58,9 @@ With your virtual environment active, install FastAPI and Uvicorn (an ASGI serve
 pip install fastapi uvicorn
 ```
 
-### 5. **Create Your FastAPI Application**
+### 5. **Structure Your Application**
 
-Create a file named `main.py` in your project directory and add the following code:
-
-```python
-from fastapi import FastAPI
-
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-```
+Organize your application using the MVC pattern. Create a `mvc_sample` directory with separate modules for models, views, and controllers.
 
 ### 6. **Create a .gitignore File**
 
@@ -94,7 +84,14 @@ This tells Git to ignore the `__pycache__` directory, the `venv` directory, and 
 
 ### 7. **Run the Application**
 
-Start your FastAPI application using Uvicorn:
+Navigate back to the root of your project directory and start your FastAPI application using Uvicorn with the following command for the mvc sample application:
+
+```bash
+uvicorn mvc_sample.main:app --reload
+```
+
+For the `main.py` only application
+Navigate back to the root of your project directory and start your FastAPI application using Uvicorn with the following command:
 
 ```bash
 uvicorn main:app --reload
@@ -110,16 +107,17 @@ Your FastAPI application will be running at `http://127.0.0.1:8000`. Open this U
 
 FastAPI automatically generates interactive API documentation. Access it at `http://127.0.0.1:8000/docs`.
 
-### API Endpoints
+## MVC Structure Explained
 
-This application provides a simple CRUD API for greetings.
+The MVC (Model-View-Controller) pattern is a software design pattern that separates the application into three interconnected components. This separation helps manage complexity in applications, enabling better organization and scalability:
 
-- `POST /greetings/`: Create a new greeting. Requires an `id` and a `message`.
-- `GET /greetings/{greeting_id}`: Retrieve a greeting by its `id`.
-- `PUT /greetings/{greeting_id}`: Update a greeting by its `id`.
-- `DELETE /greetings/{greeting_id}`: Delete a greeting by its `id`.
+- **Model**: The data layer of the application, handling data logic and rules.
+- **View**: The presentation layer, displaying data to the user and accepting user input.
+- **Controller**: The interface between Model and View, processing all the business logic and incoming requests, manipulating data using the Model, and interacting with the Views to render the final output.
 
-### API Endpoints and Testing with `curl`
+By separating concerns in this manner, the MVC pattern promotes organized coding practices and eases maintenance.
+
+## API Endpoints and Testing with `curl`
 
 This application provides a simple CRUD API for greetings. Below are the `curl` commands to test each endpoint.
 
@@ -129,7 +127,7 @@ To retrieve all greetings:
 
 ```bash
 curl -X 'GET' \
-  'http://127.0.0.1:8000/greetings/all' \
+  'http://127.0.0.1:8000/greetings/' \
   -H 'accept: application/json'
 ```
 
@@ -139,10 +137,10 @@ To create a new greeting:
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8000/greetings/?id=1' \
+  'http://127.0.0.1:8000/greetings/' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"message": "Hello, World!"}'
+  -d '{"id": 6, "message": "Hello, World!"}'
 ```
 
 ### Read a Greeting (GET)
