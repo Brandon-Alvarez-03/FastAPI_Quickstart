@@ -21,17 +21,56 @@ greetings = {
 # Define the root endpoint, which returns an HTML response
 @app.get("/", response_class=HTMLResponse)
 def read_root():
-    # Returns a simple HTML content with a clickable link to '/greetings/all'
+    # Enhanced HTML content with more functionality and styling
     return """
     <html>
         <head>
             <title>FastAPI Greetings</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 40px; }
+                .container { margin-bottom: 20px; }
+                .endpoint { background-color: #f4f4f4; padding: 10px; }
+            </style>
         </head>
         <body>
-            <p>Welcome to the Greetings API! Click <a href='/greetings/'>here</a> to see all greetings.</p>
+            <h1>Welcome to the FastAPI Greetings API!</h1>
+
+            <div class="container">
+                <div class="endpoint">
+                    <h2>Create a Greeting</h2>
+                    <form action="/greetings/" method="post">
+                        <input type="number" name="id" placeholder="ID" required>
+                        <input type="text" name="message" placeholder="Greeting Message" required>
+                        <button type="submit">Create</button>
+                    </form>
+                </div>
+
+                <div class="endpoint">
+                    <h2>Read All Greetings</h2>
+                    <p><a href="/greetings/all">View all greetings</a></p>
+                </div>
+
+                <div class="endpoint">
+                    <h2>Update a Greeting</h2>
+                    <form action="/greetings/{greeting_id}" method="put">
+                        <input type="number" name="greeting_id" placeholder="Greeting ID" required>
+                        <input type="text" name="message" placeholder="New Greeting Message" required>
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+
+                <div class="endpoint">
+                    <h2>Delete a Greeting</h2>
+                    <form action="/greetings/{greeting_id}" method="delete">
+                        <input type="number" name="greeting_id" placeholder="Greeting ID" required>
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
         </body>
     </html>
     """
+
 
 # Endpoint to get all greetings
 @app.get("/greetings/")
