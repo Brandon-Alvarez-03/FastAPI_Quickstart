@@ -21,56 +21,64 @@ greetings = {
 # Define the root endpoint, which returns an HTML response
 @app.get("/", response_class=HTMLResponse)
 def read_root():
-    # Enhanced HTML content with more functionality and styling
+    # Returns refined HTML content with styling
     return """
-    <html>
-        <head>
-            <title>FastAPI Greetings</title>
-            <style>
-                body { font-family: Arial, sans-serif; margin: 40px; }
-                .container { margin-bottom: 20px; }
-                .endpoint { background-color: #f4f4f4; padding: 10px; }
-            </style>
-        </head>
-        <body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FastAPI Greetings</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f7f7f7;
+                color: #333;
+                line-height: 1.6;
+                margin: 0;
+                padding: 30px;
+                text-align: center;
+            }
+            .container {
+                max-width: 700px;
+                margin: auto;
+                overflow: hidden;
+                padding: 0 20px;
+            }
+            h1, p {
+                text-align: center;
+            }
+            .btn {
+                display: block;
+                width: 100%;
+                padding: 10px 20px;
+                margin: 20px auto;
+                background: #333;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+            .btn:hover {
+                background: #555;
+            }
+            a {
+                color: #333;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
             <h1>Welcome to the FastAPI Greetings API!</h1>
-
-            <div class="container">
-                <div class="endpoint">
-                    <h2>Create a Greeting</h2>
-                    <form action="/greetings/" method="post">
-                        <input type="number" name="id" placeholder="ID" required>
-                        <input type="text" name="message" placeholder="Greeting Message" required>
-                        <button type="submit">Create</button>
-                    </form>
-                </div>
-
-                <div class="endpoint">
-                    <h2>Read All Greetings</h2>
-                    <p><a href="/greetings/all">View all greetings</a></p>
-                </div>
-
-                <div class="endpoint">
-                    <h2>Update a Greeting</h2>
-                    <form action="/greetings/{greeting_id}" method="put">
-                        <input type="number" name="greeting_id" placeholder="Greeting ID" required>
-                        <input type="text" name="message" placeholder="New Greeting Message" required>
-                        <button type="submit">Update</button>
-                    </form>
-                </div>
-
-                <div class="endpoint">
-                    <h2>Delete a Greeting</h2>
-                    <form action="/greetings/{greeting_id}" method="delete">
-                        <input type="number" name="greeting_id" placeholder="Greeting ID" required>
-                        <button type="submit">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </body>
+            <p>Click the button below to view all greetings.</p>
+            <a href='/greetings/' class="btn">View All Greetings</a>
+        </div>
+    </body>
     </html>
     """
-
 
 # Endpoint to get all greetings
 @app.get("/greetings/")
