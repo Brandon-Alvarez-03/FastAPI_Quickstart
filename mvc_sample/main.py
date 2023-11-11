@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse  # Importing HTMLResponse to enable returning HTML content
-from .routes import router as greetings_router
+from mvc_sample.routes import router as greetings_router
 
 import os
 
