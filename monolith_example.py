@@ -145,7 +145,3 @@ def delete_greeting(greeting_id: int):
         return {"error": "Greeting not found."}
     del greetings[greeting_id]  # Delete the greeting from the dictionary
     return {"message": "Greeting deleted successfully."}
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=port)
